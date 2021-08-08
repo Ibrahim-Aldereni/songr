@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Albums</title>
+</head>
+<body>
+    <table id="customers">
+        <tr>
+            <th>songCount</th>
+            <th>title</th>
+            <th>artist</th>
+            <th>length</th>
+            <th>imageUrl</th>
+        </tr>
+        <tr  th:each="album: ${albums}">
+            <td th:text="${album.songCount}"></td>
+            <td th:text="${album.title}"></td>
+            <td th:text="${album.artist}"></td>
+            <td th:text="${album.lengthInSec}"></td>
+            <td> <a th:href="${album.imageUrl}" target="_blank">url</a> </td>
+        </tr>
+    </table>
+</body>
+</html>
