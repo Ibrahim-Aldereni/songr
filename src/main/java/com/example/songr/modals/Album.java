@@ -1,16 +1,27 @@
 package com.example.songr.modals;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+// to make this modal as table in database
+@Entity
 public class Album {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int songCount;
     private String title;
     private String artist;
-    private int songCount;
     private int lengthInSec;
     private String imageUrl;
 
-    public Album(String title, String artist, int songCount, int lengthInSec, String imageUrl) {
+    public Album() {
+    }
+
+    public Album(String title, String artist, int lengthInSec, String imageUrl) {
         this.title = title;
         this.artist = artist;
-        this.songCount = songCount;
         this.lengthInSec = lengthInSec;
         this.imageUrl = imageUrl;
     }
