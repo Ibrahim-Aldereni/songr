@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Songs</title>
+</head>
+<body>
+    <h1>Add song Form</h1>
+    <form action="#" th:action="@{/addSong}" th:object="${song}" method="post">
+        <p>Title: <input type="text" th:field="*{title}" /></p>
+        <p>LengthInSec: <input type="text" th:field="*{lengthInSec}" /></p>
+        <p>Album:
+            <select th:field="*{album}">
+                <option th:each="album: ${albums}" th:text="${album.title}" th:value="${{album}}"></option>
+            </select>
+        </p>
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+    <h1>Results</h1>
+    <table id="table">
+        <tr>
+            <th>trackNumber</th>
+            <th>title</th>
+            <th>length</th>
+            <th>album</th>
+        </tr>
+        <tr th:each="song: ${songs}">
+            <td th:text="${song.trackNumber}"></td>
+            <td th:text="${song.title}"></td>
+            <td th:text="${song.lengthInSec}"></td>
+            <td> <a th:href="@{'/album/'+${song.album.songCount}}" target="_blank" th:text="${song.album.title}"></a></td>
+        </tr>
+    </table>
+</body>
+</html>
