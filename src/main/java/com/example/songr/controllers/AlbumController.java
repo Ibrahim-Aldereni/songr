@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -50,6 +51,15 @@ public class AlbumController {
     public RedirectView addAlbum(@ModelAttribute Album album){
         albumRepository.save(album); // the values saved in (th:object="${album}") saved to database
         return new RedirectView("/allAlbums"); // when /addAlbum hit, it will redirect to the allAlbums page
+    }
+
+    ////////////////////////////////////////// lab 13 /////////////////////////////////////////////
+    // get single album
+    @GetMapping("/album/{songCount}")
+    public String getOneAlbum(@PathVariable Integer songCount, Model model){
+
+        model.addAttribute("album",albumRepository.findById(songCount).get());
+        return "singleAlbum.html";
     }
 
 }

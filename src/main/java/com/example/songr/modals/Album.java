@@ -1,9 +1,10 @@
 package com.example.songr.modals;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import net.bytebuddy.build.ToStringPlugin;
+
+import javax.persistence.*;
+import java.util.List;
 
 // to make this modal as table in database
 @Entity
@@ -15,6 +16,8 @@ public class Album {
     private String artist;
     private int lengthInSec;
     private String imageUrl;
+    @OneToMany(mappedBy = "album") // column name will be added to song table to indicate in which album the song is
+    private List<Song> songs;
 
     public Album() {
     }
@@ -66,9 +69,17 @@ public class Album {
         this.imageUrl = imageUrl;
     }
 
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
+    }
+
     @Override
-    public String toString() {
-        return "Album{" + "title='" + title + '\'' + ", artist='" + artist + '\'' + ", songCount=" + songCount + ", " +
-                "lengthInSec=" + lengthInSec + ", imageUrl='" + imageUrl + '\'' + '}';
+    public String toString() { // song.size() is added to avoid stack overflow error
+        return "{" + "songCount=" + songCount + ", title='" + title + '\'' + ", artist='" + artist + '\'' + ", " +
+                "lengthInSec=" + lengthInSec + ", imageUrl='" + imageUrl + '\'' + ", NumberOfSongs=" + songs.size() + '}';
     }
 }
